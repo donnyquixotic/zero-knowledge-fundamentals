@@ -116,7 +116,7 @@ contract EllipticCurveMath {
                 product = math.mul(matrix[i][j], s[j].x, s[j].y);
                 matmulResult[i] = math.add(matmulResult[i].x, matmulResult[i].y, product.x, product.y);
 
-                if (j == n-1 && matmulResult[i].x != oResult[i].x && matmulResult[i].y != oResult[i].y){
+                if (j == n-1 && (matmulResult[i].x != oResult[i].x || matmulResult[i].y != oResult[i].y)){
                     return false;
                 }
             }
