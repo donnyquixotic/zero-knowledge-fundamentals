@@ -2,7 +2,8 @@ import numpy as np
 import random
 
 def verifyConstraint(A, B, C, w):
-  return (np.multiply(A.dot(w), B.dot(w)) == C.dot(w))
+	result = np.multiply(A.dot(w), B.dot(w)) == C.dot(w)
+	return result.all()  
 
 x = random.randint(1,1000)
 y = random.randint(1,1000)
