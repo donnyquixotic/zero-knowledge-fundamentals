@@ -1,4 +1,4 @@
-from py_ecc.bn128 import G1, add, multiply, curve_order 
+from py_ecc.bn128 import eq, G1, G2, add, neg, multiply, pairing, final_exponentiate, curve_order 
 
 def rationalAdd(p1, p2, num, den):
     '''
@@ -82,8 +82,30 @@ def matmul(matrix, n, s, o):
         if (j == n-1 and (result[i][0] != o[i][0] or result[i][1] != o[i][1])):
           return False
     
-    return True 
+    return True
 
+def verifyBilinealPairing(a, b, c, x, alpha, beta, gamma, delta):
+    A_inv = neg(multiply(G1, a))
+    B = multiply(G2, b)
+    C = multiply(G1, c)
+    X = multiply(G1, x)
+
+    Alpha = multiply(G1, alpha)
+    Beta = multiply(G2, beta)
+    Gamma = multiply(G2, gamma)
+    Delta = multiply(G2, delta)
+
+    minusAB = pairing(B, A_inv)
+    alphaBeta = pairing(Beta, Alpha)
+    xGamma = pairing(Gamma, X)
+    cDelta = pairing(Delta, C)
+
+    # Verified result: (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ZERO = final_exponentiate(pairing(G2, G1) * pairing(G2, neg(G1)))
+
+    pairingSum = final_exponentiate(minusAB * alphaBeta * xGamma * cDelta)
+
+    return pairingSum == ZERO
 
 # **************Example Usage***************
 # p1 = (1, 2)
@@ -100,3 +122,8 @@ def matmul(matrix, n, s, o):
 # s = [7, 11, 13] 
 # o = [130, 157, 72]
 # print(matmul(matrix, n, s, o))
+
+# ab = alpha(beta) + x(gamma) + c(delta)
+# 0 = -AB + Alpha(Beta) + X(Gamma) + C(Delta)
+# (7 * 12) = (2 * 4) + (3 * 6) + (2 * 29)  
+# print(verifyBilinealPairing(7, 12, 2, 3, 2, 4, 6, 29)) 
