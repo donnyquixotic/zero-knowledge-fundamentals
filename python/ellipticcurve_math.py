@@ -73,14 +73,13 @@ def matmul(matrix, n, s, o):
     result = [None] * n
 
     for i in range(n): # matrix rows
-    
       for j in range(n): # solution columns
     
         product = multiply(multiply(G1,s[j]), matrix[i][j])
         result[i] = add(result[i], product)
 
         if (j == n-1 and (result[i][0] != o[i][0] or result[i][1] != o[i][1])):
-          return False
+            return False
     
     return True
 
