@@ -84,7 +84,7 @@ def matmul(matrix, n, s, o):
     
     return True
 
-def verifyBilinealPairing(a, b, c, x, alpha, beta, gamma, delta):
+def verifyBilinearPairing(a, b, c, x, alpha, beta, gamma, delta):
     A_inv = neg(multiply(G1, a))
     B = multiply(G2, b)
     C = multiply(G1, c)
@@ -105,7 +105,7 @@ def verifyBilinealPairing(a, b, c, x, alpha, beta, gamma, delta):
 
     pairingSum = final_exponentiate(minusAB * alphaBeta * xGamma * cDelta)
 
-    return pairingSum == ZERO
+    return eq(pairingSum,ZERO)
 
 # **************Example Usage***************
 # p1 = (1, 2)
