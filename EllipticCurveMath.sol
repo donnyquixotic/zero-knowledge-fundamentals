@@ -80,7 +80,7 @@ contract EllipticCurveMath {
     }
 
     /*
-    * @return set EC points used for bilineal pairing verificaion
+    * @return set of EC points used for bilinear pairing verificaion
     */
     function verifyingKey() internal pure returns ( VerifyingKey memory vk){
         // G1, 5
