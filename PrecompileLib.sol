@@ -136,7 +136,7 @@ library math {
     }
 
     /*
-    * @return success, whether bilineal pairing elements sum to zero
+    * @return success, whether bilinear pairing elements sum to zero (array input)
     */
     function verifyPairingArray(uint256[24] memory input) public view returns (bool success) {
         uint256 inputSize = 24;
@@ -152,7 +152,7 @@ library math {
     }
 
     /*
-    * @return success, whether bilineal pairing elements sum to zero for input passed as encoded data
+    * @return success, whether bilinear pairing elements sum to zero (encoded input)
     */
     function verifyPairingBytes(bytes calldata input) public view returns (bool) {
        // optional, the precompile checks this too and reverts (with no error) if false, this helps narrow down possible errors
